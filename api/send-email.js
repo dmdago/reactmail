@@ -10,9 +10,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { nombre, email, mensaje } = req.body;
+    const { destinatario, nombre, email, mensaje } = req.body;
 
-    if (!nombre || !email || !mensaje) {
+    if (!destinatario || !nombre || !email || !mensaje) {
       return res.status(400).json({
         success: false,
         error: "Todos los campos son requeridos",
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
     const { data, error } = await resend.emails.send({
       from: process.env.EMAIL_FROM || "Contacto <onboarding@resend.dev>",
-      to: process.env.EMAIL_TO,
+      to: destinatario,
       replyTo: email,
       subject: `Nuevo mensaje de ${nombre}`,
       html: emailHtml,

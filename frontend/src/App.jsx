@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 function App() {
   const [formData, setFormData] = useState({
+    destinatario: '',
     nombre: '',
     email: '',
     mensaje: ''
@@ -32,7 +33,7 @@ function App() {
 
       if (data.success) {
         setStatus({ type: 'success', message: 'Email enviado correctamente!' })
-        setFormData({ nombre: '', email: '', mensaje: '' })
+        setFormData({ destinatario: '', nombre: '', email: '', mensaje: '' })
       } else {
         setStatus({ type: 'error', message: data.error || 'Error al enviar' })
       }
@@ -48,6 +49,19 @@ function App() {
       <h1>Formulario de Contacto</h1>
 
       <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="destinatario">Para (Email destinatario)</label>
+          <input
+            type="email"
+            id="destinatario"
+            name="destinatario"
+            value={formData.destinatario}
+            onChange={handleChange}
+            required
+            placeholder="destino@email.com"
+          />
+        </div>
+
         <div className="form-group">
           <label htmlFor="nombre">Nombre</label>
           <input
